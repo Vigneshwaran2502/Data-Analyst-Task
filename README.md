@@ -41,3 +41,10 @@ The analysis of the notebook reveals several key insights:
 
 1.  **`[Your-Notebook-Name].ipynb` (Deliverable):** The Jupyter Notebook file containing all the Python code, analysis, visualizations, and written insights.
 2.  **`terror.csv`:** The raw dataset used for this analysis.
+
+## Output
+1. <img width="1000" height="600" alt="Figure_1" src="https://github.com/user-attachments/assets/f10da88d-0832-45e9-a8cd-d5404ebbd664" />
+2. <img width="1000" height="600" alt="Figure_2" src="https://github.com/user-attachments/assets/cb4b63aa-8c9c-46eb-87d6-f71d8e113c34" />
+3.<img width="1200" height="600" alt="Figure_3" src="https://github.com/user-attachments/assets/33d5084b-f6cd-44ea-8434-ae18fd10e9a0" />
+4.<img width="1000" height="600" alt="Figure_4" src="https://github.com/user-attachments/assets/f680b6aa-366e-4309-b8fb-307f3144b3f0" />
+
