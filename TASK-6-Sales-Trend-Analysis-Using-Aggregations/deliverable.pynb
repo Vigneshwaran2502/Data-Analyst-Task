@@ -1,0 +1,151 @@
+# Import your tools
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set style for charts
+sns.set_theme(style="whitegrid")
+
+# Load the dataset
+# (Make sure 'terror.csv' is in the same folder as your notebook)
+try:
+    df = pd.read_csv('terror.csv', encoding='ISO-8859-1')
+    print("Data loaded successfully!")
+except Exception as e:
+    print(f"Error loading data: {e}")
+
+# See the first 5 rows to make sure it loaded
+df.head()
+# --- Step 3: Inspect & Clean the Data ---
+
+print("Original number of columns:", len(df.columns))
+
+# 1. Select only the key columns we need for our analysis
+df = df[['iyear', 'imonth', 'country_txt', 'region_txt', 'city', 'attacktype1_txt', 'targtype1_txt', 'gname', 'nkill', 'nwound']]
+
+# 2. Rename them to be simpler
+df.rename(columns={
+    'iyear': 'Year',
+    'imonth': 'Month',
+    'country_txt': 'Country',
+    'region_txt': 'Region',
+    'city': 'City',
+    'attacktype1_txt': 'AttackType',
+    'targtype1_txt': 'TargetType',
+    'gname': 'GroupName',
+    'nkill': 'Killed',
+    'nwound': 'Wounded'
+}, inplace=True)
+
+print("Data slimmed down to 10 key columns.")
+
+# 3. Handle Missing Values
+print("\nMissing values BEFORE cleaning:")
+print(df.isnull().sum())
+
+# Fill missing 'Killed' and 'Wounded' with 0 (assuming 'missing' means 0)
+df['Killed'] = df['Killed'].fillna(0)
+df['Wounded'] = df['Wounded'].fillna(0)
+
+# Add a new 'Casualties' column
+df['Casualties'] = df['Killed'] + df['Wounded']
+
+# Fill missing 'City' with 'Unknown'
+df['City'] = df['City'].fillna('Unknown')
+
+print("\nMissing values AFTER cleaning:")
+print(df.isnull().sum())
+
+print("\nData is now clean and ready for analysis!")
+df.head()
+# --- Step 4: Univariate Analysis ---
+
+print("Starting Univariate Analysis...")
+
+# Set the size of the chart
+plt.figure(figsize=(10, 6))
+
+# Create a count plot
+sns.countplot(y='AttackType', data=df, order=df['AttackType'].value_counts().index)
+
+# Add a title
+plt.title('Most Common Attack Types')
+plt.xlabel('Number of Attacks')
+plt.ylabel('Attack Type')
+plt.show()
+print("--- Question 2: Attacks by Region ---")
+
+plt.figure(figsize=(10, 6))
+
+# Create another count plot, this time for 'Region'
+sns.countplot(y='Region', data=df, order=df['Region'].value_counts().index)
+
+plt.title('Attacks by Region')
+plt.xlabel('Number of Attacks')
+plt.ylabel('Region')
+plt.show()
+# --- Step 5: Bivariate Analysis ---
+
+print("--- Question 3: Casualties Over Time ---")
+
+# We first need to group the data by 'Year' and sum the 'Casualties' for each year
+year_casualties = df.groupby('Year')['Casualties'].sum().reset_index()
+
+# Set the size of the chart
+plt.figure(figsize=(12, 6))
+
+# Create a line plot (which is best for time-series)
+sns.lineplot(x='Year', y='Casualties', data=year_casualties)
+
+plt.title('Total Casualties by Year')
+plt.xlabel('Year')
+plt.ylabel('Total Number of Casualties')
+plt.show()
+print("--- Question 4: Casualties by Region ---")
+
+# Group by 'Region' and sum the 'Casualties'
+region_casualties = df.groupby('Region')['Casualties'].sum().reset_index()
+
+plt.figure(figsize=(10, 6))
+
+# Create a bar plot. We sort the data to make it easy to read.
+sns.barplot(
+    y='Region', 
+    x='Casualties', 
+    data=region_casualties.sort_values(by='Casualties', ascending=False)
+)
+
+plt.title('Total Casualties by Region')
+plt.xlabel('Total Casualties')
+plt.ylabel('Region')
+plt.show()
+
+# Task 6: Exploratory Data Analysis (EDA) of Global Terrorism
+
+This notebook contains the analysis of the Global Terrorism Database (GTD) to identify patterns and insights.
+
+## Data Cleaning
+* Loaded the `terror.csv` file, which has over 180,000 entries.
+* Slimmed the data down to 10 key columns (like `Year`, `Region`, `AttackType`, `Killed`, `Wounded`).
+* Cleaned the data by filling missing `Killed` and `Wounded` values with 0 and creating a new `Casualties` column.
+
+## Key Insights from Analysis
+
+### 1. Most Common Attack Types
+(Paste your "Most Common Attack Types" chart here)
+* **Insight:** "Bombing/Explosion" is the most frequent attack type by a large margin, followed by "Armed Assault."
+
+### 2. Most Attacked Regions
+(Paste your "Attacks by Region" chart here)
+* **Insight:** The "Middle East & North Africa" and "South Asia" are the two most attacked regions in the world.
+
+### 3. Casualties Over Time
+(Paste your "Total Casualties by Year" chart here)
+* **Insight:** There was a dramatic and sharp increase in total casualties (killed + wounded) starting around 2011 and peaking between 2014-2017.
+
+### 4. Casualties by Region
+(Paste your "Total Casualties by Region" chart here)
+* **Insight:** The "Middle East & North Africa" region not only experiences the most attacks but also suffers from the highest number of total casualties, followed by "South Asia."
+
+## Conclusion
+The EDA shows that the "Middle East & North Africa" and "South Asia" are the epicenters of terrorist activity, both in terms of the number of attacks and the resulting casualties. The mid-2010s saw a terrifying peak in global terrorism, driven primarily by "Bombing/Explosion" and "Armed Assault" tactics.
