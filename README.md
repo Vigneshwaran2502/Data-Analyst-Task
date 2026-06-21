@@ -29,6 +29,7 @@ Below is an overview of the projects included in this consolidated repository:
 | 📁 [TASK-6-Sales-Trend-Analysis-Using-Aggregations](./TASK-6-Sales-Trend-Analysis-Using-Aggregations) | Sales Trend Analysis (Aggregations) | Python, Jupyter, Pandas | Large-scale dataset analytics, moving averages, and aggregation pivots. |
 | 📁 [Task-7-Time-Series-Analysis](./Task-7-Time-Series-Analysis) | Time Series Forecasting | Python, Statsmodels, Jupyter | Forecasting airline passenger counts using ARIMA models. |
 | 📁 [Task-8-dashboard-design](./Task-8-dashboard-design) | Sales Executive Dashboard Design | Tableau, PNG mockup | Interactive executive sales dashboards analyzing superstore sales pathways. |
+| 📁 [Retail-Business-Performance-Profitability-Analysis](./Retail-Business-Performance-Profitability-Analysis) | Retail Business Performance & Profitability | Python, Pandas, SQL, PDF | Database queries, product analytics, and KPI reporting. |
 
 ---
 
@@ -66,3 +67,8 @@ Below is an overview of the projects included in this consolidated repository:
 ### 8. Sales Executive Dashboard Design (`Task-8-dashboard-design`)
 * Developed high-fidelity visualization dashboards in Tableau to display regional executive sales details.
 * **Deliverables**: Packaged Tableau worksheets and dashboard screenshots.
+
+### 9. Retail Business Performance & Profitability (`Retail-Business-Performance-Profitability-Analysis`)
+* Engineered SQL database queries to calculate sales profitability and business performance indicators.
+* Built analytical models in Python (`retail_project.py`) to process store transactions and generate automated PDF profitability reports.
+* **Deliverables**: Python script (`retail_project.py`), SQL queries (`Project_Queries.sql`), and executive analysis report (`Retail_Analysis_Report.pdf`).
